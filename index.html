@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>すごろくトーキング － 中3数学ウォームアップ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>すごろくトーキング <span class="subtitle">－ 中3数学ウォームアップ －</span></h1>
+        <div class="header-buttons">
+            <button id="btn-rules" class="btn-secondary">ルール・安全のお約束</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- セッティング画面 -->
+        <section id="setup-screen" class="screen view-active">
+            <div class="card setup-card">
+                <h2>ゲームの準備</h2>
+                <div class="setup-controls">
+                    <label for="player-count">参加人数: </label>
+                    <select id="player-count">
+                        <option value="2">2人</option>
+                        <option value="3">3人</option>
+                        <option value="4" selected>4人</option>
+                        <option value="5">5人</option>
+                        <option value="6">6人</option>
+                        <option value="7">7人</option>
+                        <option value="8">8人</option>
+                    </select>
+                </div>
+
+                <div id="player-inputs" class="player-inputs">
+                    <!-- JavaScriptでプレイヤー入力欄を追加 -->
+                </div>
+
+                <div class="setup-actions">
+                    <button class="btn-text" id="btn-default-names">「生徒1, 2...」を入れる</button>
+                    <button class="btn-primary" id="btn-start-game">ゲームをはじめる</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ゲーム画面 -->
+        <section id="game-screen" class="screen hidden">
+            <!-- ボードエリア -->
+            <div class="board-area">
+                <div id="board" class="board">
+                    <!-- JavaScriptでマスを生成 -->
+                </div>
+            </div>
+
+            <!-- サイドパネル（プレイヤー情報、サイコロ、現在のお題） -->
+            <div class="side-panel">
+                <div class="player-status card">
+                    <h3>プレイヤー</h3>
+                    <ul id="player-list">
+                        <!-- JavaScriptでプレイヤー情報を追加 -->
+                    </ul>
+                </div>
+
+                <div class="dice-section card">
+                    <h3 id="current-turn-display">？の番です</h3>
+
+                    <div class="scene">
+                        <div class="cube" id="dice">
+                            <div class="cube__face cube__face--front">1</div>
+                            <div class="cube__face cube__face--back">6</div>
+                            <div class="cube__face cube__face--right">3</div>
+                            <div class="cube__face cube__face--left">4</div>
+                            <div class="cube__face cube__face--top">2</div>
+                            <div class="cube__face cube__face--bottom">5</div>
+                        </div>
+                    </div>
+
+                    <div class="dice-controls">
+                        <label class="sound-toggle"><input type="checkbox" id="sound-checkbox">
+                            <span>音を鳴らす</span></label>
+                        <button class="btn-action" id="btn-roll-dice">サイコロをふる</button>
+                    </div>
+                </div>
+
+                <div class="prompt-section card hidden" id="prompt-display">
+                    <h3>現在のお題</h3>
+                    <div class="category-badge" id="prompt-category">日常のこと</div>
+                    <p class="prompt-text" id="prompt-text">ここに質問が表示されます。</p>
+                    <div class="safe-note">パスしてもOKです！相手が嫌な気持ちになる言い方はしません。</div>
+                    <button class="btn-secondary" id="btn-next-turn">次の人へ</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- モーダル：ルール -->
+    <div id="modal-rules" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="close-rules">&times;</span>
+            <h2>ルールと安全のお約束</h2>
+            <div class="rules-text">
+                <h3>遊び方</h3>
+                <ol>
+                    <li>「ゲームの準備」で参加人数と名前を決めます。</li>
+                    <li>自分の番が来たら「サイコロをふる」ボタンを押します。</li>
+                    <li>出た目の数だけ自分のコマが進みます。</li>
+                    <li>止まったマスに書かれたジャンルのお題が出ます。</li>
+                    <li>お題に答えるか、パスをするか選びましょう。</li>
+                    <li>全員でコミュニケーションを楽しみながら、数学のウォームアップをしましょう！</li>
+                </ol>
+
+                <h3 class="important-note">大切なお約束</h3>
+                <ul>
+                    <li><strong>パスOK！</strong> 答えにくいときは無理に答えず、「パス」と言って次に進んで大丈夫です。</li>
+                    <li><strong>思いやり！</strong> 相手が嫌な気持ちになることや、傷つくような言葉は使いません。</li>
+                    <li><strong>楽しく！</strong> 間違えても大丈夫。リラックスしてみんなで楽しむ時間です。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- ゴール時のお祝いモーダル -->
+    <div id="modal-goal" class="modal hidden">
+        <div class="modal-content goal-content">
+            <h2>🎉 ゴール！ 🎉</h2>
+            <p id="goal-message">おめでとうございます！</p>
+            <button class="btn-primary" id="btn-close-goal">閉じる</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
